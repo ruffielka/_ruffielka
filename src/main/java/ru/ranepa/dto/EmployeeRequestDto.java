@@ -1,23 +1,15 @@
-package ru.ranepa.model;
+package ru.ranepa.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "employees")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class EmployeeRequestDto {
 
     @NotBlank(message = "Name is required")
     private String name;
@@ -30,14 +22,4 @@ public class Employee {
     private BigDecimal salary;
 
     private LocalDate hireDate;
-
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        if (this.hireDate == null) {
-            this.hireDate = LocalDate.now();
-        }
-    }
 }
